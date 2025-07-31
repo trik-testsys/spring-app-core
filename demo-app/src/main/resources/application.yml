@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: demo-app
+
+logging:
+  level:
+    trik.testsys.*: DEBUG

@@ -1,0 +1,212 @@
+name: Release Version Update (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      is_major:
+        description: 'Is this a major release?'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  compute-versions:
+    runs-on: ubuntu-latest
+    needs: build
+    outputs:
+      base: ${{ steps.compute-release.outputs.base }}
+      release: ${{ steps.compute-release.outputs.release }}
+      next-snap: ${{ steps.compute-next-snapshot.outputs.next-snap }}
+      patch: ${{ steps.compute-patch.outputs.patch }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Compute release version
+        id: compute-release
+        run: |
+          CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          BASE_VERSION=$(echo "$CURRENT_VERSION" | sed 's/-SNAPSHOT$//')
+          
+          IFS='.' read -ra VERSION_PARTS <<< "$BASE_VERSION"
+          MAJOR="${VERSION_PARTS[0]}"
+          MINOR="${VERSION_PARTS[1]}"
+          PATCH="${VERSION_PARTS[2]}"
+          
+          if [ "${{ github.event.inputs.is_major }}" = "true" ]; then
+            NEW_MAJOR=$((MAJOR + 1))
+            RELEASE_VERSION="${NEW_MAJOR}.0.0.RELEASE"
+          else
+            RELEASE_VERSION="${BASE_VERSION}.RELEASE"
+          fi
+          
+          echo "release=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          
+          BASE_VERSION=$(echo "$RELEASE_VERSION" | sed 's/.RELEASE$//')
+          echo "base=$BASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Compute next snapshot version
+        id: compute-next-snapshot
+        run: |
+          IFS='.' read -ra VERSION_PARTS <<< "${{ steps.compute-release.outputs.base }}"
+          MAJOR="${VERSION_PARTS[0]}"
+          MINOR="${VERSION_PARTS[1]}"
+          
+          NEW_MINOR=$((MINOR + 1))
+          NEXT_SNAPSHOT="${MAJOR}.${NEW_MINOR}.0-SNAPSHOT"
+          
+          echo "next-snap=$NEXT_SNAPSHOT" >> $GITHUB_OUTPUT
+
+      - name: Compute patch branch version
+        id: compute-patch
+        run: |
+          IFS='.' read -ra VERSION_PARTS <<< "${{ steps.compute-release.outputs.base }}"
+          MAJOR="${VERSION_PARTS[0]}"
+          MINOR="${VERSION_PARTS[1]}"
+          PATCH="${VERSION_PARTS[2]}"
+          
+          NEW_PATCH=$((PATCH + 1))
+          PATCH_SNAPSHOT="${MAJOR}.${MINOR}.${NEW_PATCH}-SNAPSHOT"
+          
+          echo "patch=$PATCH_SNAPSHOT" >> $GITHUB_OUTPUT  
+
+  update-project-version:
+    runs-on: ubuntu-latest
+    needs: [ compute-versions ]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 'master'
+          token: ${{ secrets.PAT }}
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Replace all %CURRENT_VERSION% placeholders and push if found
+        run: |
+          files=$(grep -rl '%CURRENT_VERSION%' **/src/ || true)
+          if [ -n "$files" ]; then
+            echo "$files" | xargs sed -i "s/%CURRENT_VERSION%/${{ needs.compute-versions.outputs.base }}/g"
+          
+            git add .
+            git commit -m "[release] Replaced all %CURRENT_VERSION% to ${{ needs.compute-versions.outputs.base }}"
+            git push origin master
+          else
+            echo "No %CURRENT_VERSION% placeholders found. Skipping push."
+          fi
+
+      - name: Update project version to release
+        run: |
+          mvn versions:set -DnewVersion="${{ needs.compute-versions.outputs.release }}" -DgenerateBackupPoms=false
+          
+          git add .
+          git commit -m "[release] Updated project version to ${{ needs.compute-versions.outputs.release }}"
+          git push origin master
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: [ compute-versions, update-project-version ]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 'master'
+          token: ${{ secrets.PAT }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Create and push release tag
+        run: |
+          git tag -a "v${{ needs.compute-versions.outputs.base }}" -m "Release ${{ needs.compute-versions.outputs.release }}"
+          git push origin "v${{ needs.compute-versions.outputs.base }}"
+
+  create-patch-branch:
+    runs-on: ubuntu-latest
+    needs: [ compute-versions, create-release ]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 'master'
+          token: ${{ secrets.PAT }}
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Create patch branch and update version
+        run: |
+          IFS='.' read -ra VERSION_PARTS <<< "${{ needs.compute-versions.outputs.base }}"
+          MAJOR="${VERSION_PARTS[0]}"
+          MINOR="${VERSION_PARTS[1]}"
+          PATCH_BRANCH_NAME="patch/${MAJOR}.${MINOR}"
+          
+          git checkout -b "$PATCH_BRANCH_NAME"
+          
+          mvn versions:set -DnewVersion="${{ needs.compute-versions.outputs.patch }}" -DgenerateBackupPoms=false
+          
+          git add .
+          git commit -m "[release] Updated version to ${{ needs.compute-versions.outputs.patch }} for patch branch"
+          git push origin "$PATCH_BRANCH_NAME"
+
+  update-project-next-version:
+    runs-on: ubuntu-latest
+    needs: [ compute-versions, create-release ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 'master'
+          token: ${{ secrets.PAT }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Update version to next snapshot
+        run: |
+          mvn versions:set -DnewVersion="${{ needs.compute-versions.outputs.next-snap }}" -DgenerateBackupPoms=false
+
+      - name: Commit and push to master
+        run: |
+          git add .
+          git commit -m "[release] Updated version to ${{ needs.compute-versions.outputs.next-snap }} for next development cycle"
+          git push origin master

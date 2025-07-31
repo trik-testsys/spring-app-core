@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>trik.testsys</groupId>
+        <artifactId>spring-app-core</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>trik.testsys.sac</groupId>
+    <artifactId>demo-app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Demo App</name>
+    <description>Demo application using spring-app-core as parent</description>
+
+    <developers>
+        <developer>
+            <name>Roman Shishkin</name>
+            <email>romashkin.2001@yandex.ru</email>
+            <organization>TestSys</organization>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <!-- Include core-commons as dependency -->
+        <dependency>
+            <groupId>trik.testsys.sac</groupId>
+            <artifactId>core-commons</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>trik.testsys.sac.TSApp</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>${maven.site-plugin.version}</version>
+                <configuration>
+                    <message>Skipping</message>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

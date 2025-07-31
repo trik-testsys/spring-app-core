@@ -1,0 +1,54 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update                                          # Update database schema on start if necessary
+    open-in-view: on                                            # Enable JPA open-in-view
+    defer-datasource-initialization: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/testsys_db       # Database URL
+    username: ${MYSQL_USERNAME:testsys}                                           # Database username
+    password: ${MYSQL_PASSWORD:p@ssw0rd}                                          # Database password
+    driver-class-name: com.mysql.cj.jdbc.Driver                 # Driver for MySQL
+    hikari:
+      connection-timeout: 30000                                 # Connection timeout
+      maximum-pool-size: 20                                     # Maximum pool size
+      initialization-fail-timeout: 0                            # Initialization fail timeout
+      max-lifetime: 1800000                                     # Maximum lifetime
+      idle-timeout: 600000                                      # Idle timeout
+      minimum-idle: 5                                           # Minimum idle
+  h2:
+    console:
+      enabled: off                                              # Disable H2 console
+  sql:
+    init:
+      mode: never
+  data:
+    jdbc:
+      repositories:
+        enabled: false                                           # Disable JDBC repositories
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  session:
+    timeout: 3h
+    jdbc:
+      initialize-schema: always
+logging:
+  file:
+    name: "${LOG_FILE:${PWD}/logs/server.log}"                              # Path to log file
+  logback:
+    rollingpolicy:
+      clean-history-on-start: false                             # Not cleaning history on start
+      max-history: 31                                           # Stores a month of logs
+  level:
+    trik.testsys.*: debug
+server:
+  port: 8888                                                    # Entrypoint
+  servlet:
+    context-path: ${CONTEXT_PATH:/}                              # Context path
+    session:
+      timeout: 3h
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
