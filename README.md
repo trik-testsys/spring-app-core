@@ -191,9 +191,11 @@ The project includes comprehensive test coverage. Run tests with:
 ## CI/CD
 
 The project includes GitHub Actions workflows for:
-- **Build and Test**: Automated builds and testing on pull requests
-- **Release**: Automated releases with version management
-- **Version Updates**: Automated version bumping for patches and releases
+- **[Build and Test](./.github/workflows/build.yml)**: Automated builds and testing 
+- **[Release Publish](./.github/workflows/release.yml)**: Automated release artifacts publishing to [maven-repo](https://github.com/trik-testsys/maven-repo/tree/releases)
+- **[Release Version Update](./.github/workflows/release-version-update.yml)**: Automated version bumping for patches and releases, also creating release tags
+- **[Patch Version Update](./.github/workflows/patch-version-update.yml)**: Automated version bumping for releasing patch artifacts, also creating release tags
+- **[Snapshot Publish](./.github/workflows/snapshot.yml)**: Automated snapshot artifacts publishing to [maven-repo](https://github.com/trik-testsys/maven-repo/tree/snapshots)
 
 ## Contributing
 
@@ -209,8 +211,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Authors
 
-- **Roman Shishkin** - *Initial work* - [romashkin.2001@yandex.ru](mailto:romashkin.2001@yandex.ru)
-- **Vyacheslav Buchin** - *Contributor* - [slava.slava2003@mail.ru](mailto:slava.slava2003@mail.ru)
+- **Roman Shishkin** - *Maintainer* - [sh1sh4k1n9](https://github.com/sh1sh4k1n9)
+- **Vyacheslav Buchin** - *Contributor* - [ch3zych3z](https://github.com/ch3zych3z)
+- **Viktor Karasev** - *Contributor* - [KarasssDev](https://github.com/KarasssDev)
 
 ## Support
 
