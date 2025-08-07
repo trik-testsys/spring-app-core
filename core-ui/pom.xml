@@ -5,12 +5,12 @@
     <parent>
         <groupId>trik.testsys</groupId>
         <artifactId>spring-app-core</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
 
     <groupId>trik.testsys.sac</groupId>
     <artifactId>core-ui</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
 
     <name>Core UI</name>
