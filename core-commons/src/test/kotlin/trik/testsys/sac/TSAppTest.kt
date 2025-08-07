@@ -2,6 +2,7 @@ package trik.testsys.sac
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import trik.testsys.sac.application.TSApp
 
 /**
  * @author Roman Shishkin

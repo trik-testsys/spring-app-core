@@ -39,7 +39,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>trik.testsys.sac.TSApp</mainClass>
+                    <mainClass>trik.testsys.sac.application.TSApp</mainClass>
                 </configuration>
             </plugin>
             <plugin>
