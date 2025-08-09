@@ -6,15 +6,15 @@ import jakarta.persistence.ElementCollection
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.MappedSuperclass
-import trik.testsys.sac.entity.BaseEntity
+import trik.testsys.sac.entity.audit.AuditableEntity
 import java.time.Instant
 
 /**
- * Base mapped superclass for the user domain model.
+ * Base mapped superclass for the user domain model with auditing metadata.
  *
  * Designed to be extended by child projects which provide the concrete `@Entity`
- * and `@Table` mapping. This class contains common user attributes and persistence
- * conventions used across projects.
+ * and `@Table` mapping. This class contains common user attributes, auditing fields
+ * (via [AuditableEntity]) and persistence conventions used across projects.
  *
  * - Privileges are stored as a set of stable string codes in [privilegeCodes].
  *   Consuming applications should define an enum implementing
@@ -39,7 +39,7 @@ abstract class UserEntity(
     var accessToken: String,
     @Column(name = "name", nullable = false, length = NAME_MAX_LENGTH)
     var name: String
-) : BaseEntity() {
+) : AuditableEntity() {
 
     @Column(name = "last_login_at")
     var lastLoginAt: Instant? = null
