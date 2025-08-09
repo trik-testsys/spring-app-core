@@ -12,11 +12,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
 
 /**
- * Common base for all JPA entities in the system.
+ * Base mapped superclass for all JPA entities.
  *
- * - [id]: database primary key
- * - [createdAt]: creation date-time (UTC), filled automatically by JPA auditing
- * - [info]: optional free-form field for additional metadata/notes
+ * Provides a generated primary key, automatic creation timestamp via Spring Data JPA auditing,
+ * and a free-form text field for arbitrary metadata. Implements [Persistable] to ensure
+ * correct new/managed state detection by Spring Data.
+ *
+ * Equality is based on persistent identity: two entities are equal if and only if both have
+ * non-null identifiers that are equal. Transient (unsaved) instances are never equal.
+ *
+ * @property id database primary key (generated)
+ * @property createdAt entity creation date-time in UTC, set by auditing
+ * @property info optional free-form text for notes or metadata
  *
  * @author Roman Shishkin
  * @since %CURRENT_VERSION%

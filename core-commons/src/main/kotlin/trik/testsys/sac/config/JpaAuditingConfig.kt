@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 
 /**
- * Enables Spring Data JPA auditing for automatic population of audit fields
- * such as CreatedDate.
+ * Configuration enabling Spring Data JPA auditing.
+ *
+ * With this enabled, fields annotated with `@CreatedDate` (and others like `@LastModifiedDate`
+ * if used) are populated automatically by the persistence layer.
  *
  * @author Roman Shishkin
  * @since %CURRENT_VERSION%

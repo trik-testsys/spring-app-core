@@ -10,13 +10,25 @@ import trik.testsys.sac.entity.BaseEntity
 import java.time.Instant
 
 /**
- * Core user entity.
+ * Base mapped superclass for the user domain model.
  *
- * - [accessToken]: last known access token used to authorize in the system
- * - [name]: user's display name
- * - [lastLoginAt]: last login timestamp (UTC)
- * - [privilegeCodes]: set of privilege codes. Concrete projects should provide
- *   an enum implementing `trik.testsys.sac.entity.security.Privilege` with matching codes.
+ * Designed to be extended by child projects which provide the concrete `@Entity`
+ * and `@Table` mapping. This class contains common user attributes and persistence
+ * conventions used across projects.
+ *
+ * - Privileges are stored as a set of stable string codes in [privilegeCodes].
+ *   Consuming applications should define an enum implementing
+ *   `trik.testsys.sac.entity.security.Privilege` and convert to/from these codes.
+ * - The collection of privileges is persisted via `@ElementCollection` in a table
+ *   named `${TABLE_PREFIX}_privileges` joined by `user_id`.
+ *
+ * @property accessToken Last known access token used to authorize in the system.
+ * Must be unique per user. Max length is [ACCESS_TOKEN_MAX_LENGTH].
+ * @property name User's display name. Max length is [NAME_MAX_LENGTH].
+ * @property lastLoginAt Last successful login timestamp in UTC, if available.
+ * @property hasLoggedIn Convenience flag reflecting whether [lastLoginAt] is non-null.
+ * @property privilegeCodes Set of privilege codes assigned to the user.
+ *   Codes should correspond to an enum implementing `Privilege` in the consuming app.
  *
  * @author Roman Shishkin
  * @since %CURRENT_VERSION%
