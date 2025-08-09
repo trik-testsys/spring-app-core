@@ -36,7 +36,7 @@ abstract class BaseEntity : Persistable<Long> {
 
     override fun getId() = id
 
-    override fun isNew() = id != null
+    override fun isNew() = id == null
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -54,6 +54,11 @@ abstract class BaseEntity : Persistable<Long> {
     }
 
     override fun hashCode(): Int = id?.hashCode() ?: System.identityHashCode(this)
+
+    companion object {
+
+        const val TABLE_PREFIX = "ts"
+    }
 }
 
 
