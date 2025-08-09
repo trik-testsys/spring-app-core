@@ -15,14 +15,12 @@ class DemoController(
 ) {
 
     @GetMapping("/hello")
-    fun hello(): ResponseEntity<ResponseData> {
+    fun hello(): ResponseEntity<Map<String, Any?>> {
         val data = DemoResponseData(
             message = "Hello from $appName"
         )
 
-        val a = data.toMap()
-
-        return ResponseEntity.ok(data)
+        return ResponseEntity.ok(data.toMap())
     }
 
     data class DemoResponseData(
