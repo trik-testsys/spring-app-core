@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Demo Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" activateToolWindowBeforeRun="false">
+    <option name="DEBUG_MODE" value="true" />
+    <option name="envFilePaths">
+      <option value="$PROJECT_DIR$/demo-app/.env" />
+    </option>
+    <module name="demo-app" />
+    <selectedOptions>
+      <option name="environmentVariables" />
+    </selectedOptions>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="trik.testsys.sac.application.TSApp$Companion" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
