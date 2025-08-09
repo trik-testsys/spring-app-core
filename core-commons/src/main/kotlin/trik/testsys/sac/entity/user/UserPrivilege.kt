@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity.security
+package trik.testsys.sac.entity.user
 
 import trik.testsys.sac.utils.enums.Enum
 
@@ -14,9 +14,13 @@ import trik.testsys.sac.utils.enums.Enum
  * @author Roman Shishkin
  * @since %CURRENT_VERSION%
  */
-interface Privilege : Enum {
+interface UserPrivilege : Enum {
 
     val code: String
+
+    companion object {
+
+        /** Special code representing all privileges granted. */
+        const val WILDCARD: String = "*"
+    }
 }
-
-

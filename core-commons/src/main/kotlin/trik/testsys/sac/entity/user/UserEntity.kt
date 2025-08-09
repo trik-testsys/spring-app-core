@@ -18,7 +18,7 @@ import java.time.Instant
  *
  * - Privileges are stored as a set of stable string codes in [privilegeCodes].
  *   Consuming applications should define an enum implementing
- *   `trik.testsys.sac.entity.security.Privilege` and convert to/from these codes.
+ *   `trik.testsys.sac.entity.user.Privilege` and convert to/from these codes.
  * - The collection of privileges is persisted via `@ElementCollection` in a table
  *   named `${TABLE_PREFIX}_privileges` joined by `user_id`.
  *
