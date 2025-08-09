@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo-app
+    name: ${APP_NAME:demo-app}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -19,7 +19,17 @@ spring:
       enabled: true
 logging:
   level:
+    trik.testsys.*: debug
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    trik.testsys.*: DEBUG
     org.springframework.security: DEBUG
+server:
+  port: 8888                                                    # Entrypoint
+  servlet:
+    context-path: ${CONTEXT_PATH:/}                              # Context path
+    session:
+      timeout: 3h
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
