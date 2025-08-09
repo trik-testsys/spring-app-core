@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
  * @author Roman Shishkin
  * @since 1.0.0
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["trik.testsys.*"])
 class TSApp {
 
     companion object {
