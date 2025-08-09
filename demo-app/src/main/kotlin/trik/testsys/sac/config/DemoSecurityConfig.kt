@@ -9,13 +9,13 @@ import org.springframework.security.web.SecurityFilterChain
 @Configuration
 class DemoSecurityConfig {
 
-    @Bean
-    @Order(0)
-    fun demoSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http
-            .securityMatcher("/api/demo/**")
-            .authorizeHttpRequests { it.anyRequest().permitAll() }
-            .csrf { it.disable() }
-        return http.build()
-    }
+//    @Bean
+//    @Order(0)
+//    fun demoSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
+//        http
+//            .securityMatcher("/api/demo/**")
+//            .authorizeHttpRequests { it.anyRequest().permitAll() }
+//            .csrf { it.disable() }
+//        return http.build()
+//    }
 }

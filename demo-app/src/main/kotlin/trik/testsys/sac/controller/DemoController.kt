@@ -5,11 +5,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import trik.testsys.sac.config.security.JwtSecurityConfig.Companion.API_PERMIT_ALL_PATH
 import trik.testsys.sac.controller.response.ResponseData
-import kotlin.reflect.KClass
 
 @RestController
-@RequestMapping("/api/demo")
+@RequestMapping(API_PERMIT_ALL_PATH)
 class DemoController(
     @Value("\${spring.application.name}") private val appName: String
 ) {
