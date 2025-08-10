@@ -6,11 +6,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.oauth2.jwt.JwtDecoder
-import org.springframework.security.oauth2.jwt.JwtEncoder
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder
-import com.nimbusds.jose.jwk.source.ImmutableSecret
-import com.nimbusds.jose.proc.SecurityContext
 import javax.crypto.spec.SecretKeySpec
 
 /**
@@ -33,21 +29,10 @@ class DefaultJwtConfig {
         @Value("\${sac.security.jwt.secret}")
         secret: String
     ): JwtDecoder {
-        if (secret == DEFAULT_INSECURE_SECRET) logger.error("JWT Secret is insecure, only for dev usage.\n\n !!!NOT FOR PRODUCTION!!!\n")
+        if (secret == DEFAULT_INSECURE_SECRET) logger.error("JWT Token is insecure, only for dev usage.\n\n !!!NOT FOR PRODUCTION!!!\n")
 
         val key = SecretKeySpec(secret.toByteArray(), "HmacSHA256")
         return NimbusJwtDecoder.withSecretKey(key).build()
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(JwtEncoder::class)
-    fun jwtEncoder(
-        @Value("\${sac.security.jwt.secret}")
-        secret: String
-    ): JwtEncoder {
-        val key = SecretKeySpec(secret.toByteArray(), "HmacSHA256")
-        val jwkSource = ImmutableSecret<SecurityContext>(key)
-        return NimbusJwtEncoder(jwkSource)
     }
 
     companion object {

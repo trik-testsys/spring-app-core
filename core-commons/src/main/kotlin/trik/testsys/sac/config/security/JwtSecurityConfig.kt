@@ -1,7 +1,6 @@
 package trik.testsys.sac.config.security
 
 import org.springframework.context.annotation.Bean
-import org.springframework.beans.factory.ObjectProvider
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -30,11 +29,7 @@ class JwtSecurityConfig {
      * @since 1.1.0
      */
     @Bean
-    fun securityFilterChain(
-        http: HttpSecurity,
-        jwtAuthenticationConverter: JwtAuthenticationConverter,
-        tokenRefreshEntryPointProvider: ObjectProvider<TokenRefreshEntryPoint>
-    ): SecurityFilterChain {
+    fun securityFilterChain(http: HttpSecurity, jwtAuthenticationConverter: JwtAuthenticationConverter): SecurityFilterChain {
         http
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
@@ -43,10 +38,7 @@ class JwtSecurityConfig {
                     .requestMatchers(API_PERMIT_ALL_PATTERN, ACTUATOR_HEALTH_PATTERN).permitAll()
                     .anyRequest().authenticated()
             }
-            .oauth2ResourceServer { rs ->
-                tokenRefreshEntryPointProvider.ifAvailable { rs.authenticationEntryPoint(it) }
-                rs.jwt { jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter) }
-            }
+            .oauth2ResourceServer { it.jwt { jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter) } }
 
         return http.build()
     }
