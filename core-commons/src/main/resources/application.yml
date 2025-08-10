@@ -50,6 +50,7 @@ server:
     context-path: ${CONTEXT_PATH:/}                              # Context path
     session:
       timeout: 3h
+      persistent: true
   error:
     whitelabel:
       enabled: false

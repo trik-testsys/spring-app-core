@@ -3,26 +3,35 @@ spring:
     name: ${APP_NAME:demo-app}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
+    generate-ddl: true
+    open-in-view: true
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
-    username: sa
-    password:
+    url: jdbc:h2:file:${DATA_SOURCE_FILE:./data};AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    name: demo_db
   h2:
     console:
       enabled: true
+  session:
+    timeout: 3h
+    jdbc:
+      initialize-schema: always
 logging:
   level:
     trik.testsys.*: debug
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
+  file:
+    name: "${LOG_FILE:${PWD}/logs/server.log}"
 server:
   port: 8888                                                    # Entrypoint
   servlet:
