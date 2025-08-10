@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain
 /**
  * Minimal JWT-based security configuration for resource servers.
  *
- * Applications should provide a valid [JWKSet] via configuration or override the [jwtDecoder] bean
+ * Applications should provide a valid [com.nimbusds.jose.jwk.JWKSet] via configuration or override the [jwtDecoder] bean
  * to point to their authorization server. This core config sets up stateless JWT authentication
  * and leaves endpoint authorization to the consumer application.
  *
@@ -22,6 +22,12 @@ import org.springframework.security.web.SecurityFilterChain
 @EnableWebSecurity
 class JwtSecurityConfig {
 
+    /**
+     * Builds the Spring Security filter chain with stateless JWT authentication.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @Bean
     fun securityFilterChain(http: HttpSecurity, jwtAuthenticationConverter: JwtAuthenticationConverter): SecurityFilterChain {
         http

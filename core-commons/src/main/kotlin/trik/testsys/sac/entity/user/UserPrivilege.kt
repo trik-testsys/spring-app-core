@@ -16,11 +16,22 @@ import trik.testsys.sac.utils.enums.Enum
  */
 interface UserPrivilege : Enum {
 
+    /**
+     * Stable code for the privilege used in persistence and authorization checks.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     val code: String
 
     companion object {
 
-        /** Special code representing all privileges granted. */
+        /**
+         * Special code representing all privileges granted.
+         *
+         * @author Roman Shishkin
+         * @since %CURRENT_VERSION%
+         */
         const val WILDCARD: String = "*"
     }
 }

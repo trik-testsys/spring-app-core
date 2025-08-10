@@ -32,11 +32,23 @@ import java.time.Instant
 @EntityListeners(AuditingEntityListener::class)
 abstract class BaseEntity : Persistable<Long> {
 
+    /**
+     * Database primary key.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private var id: Long? = null
 
+    /**
+     * Setter for testing and framework usage.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     fun setId(id: Long?) {
         this.id = id
     }
@@ -45,10 +57,22 @@ abstract class BaseEntity : Persistable<Long> {
 
     override fun isNew() = id == null
 
+    /**
+     * Entity creation date-time in UTC, set by auditing.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     lateinit var createdAt: Instant
 
+    /**
+     * Optional free-form text for notes or metadata.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @Column(name = "info", columnDefinition = "TEXT")
     var info: String? = null
 
@@ -64,7 +88,13 @@ abstract class BaseEntity : Persistable<Long> {
 
     companion object {
 
-        const val TABLE_PREFIX = "ts"
+        /**
+         * Default database table prefix for entities.
+         *
+         * @author Roman Shishkin
+         * @since %CURRENT_VERSION%
+         */
+        const val TABLE_PREFIX = "ts_"
     }
 }
 

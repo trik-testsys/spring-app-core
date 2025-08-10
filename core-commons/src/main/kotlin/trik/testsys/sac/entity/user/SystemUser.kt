@@ -1,7 +1,7 @@
 package trik.testsys.sac.entity.user
 
 /**
- * Singleton system user with all privileges.
+ * System user with all privileges.
  *
  * This object is intended for internal/system operations and is not persisted.
  * It carries a constant access token and name, and is granted all privileges via

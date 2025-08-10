@@ -41,20 +41,52 @@ abstract class UserEntity(
     var name: String
 ) : AuditableEntity() {
 
+    /**
+     * Last successful login timestamp in UTC, if available.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @Column(name = "last_login_at")
     var lastLoginAt: Instant? = null
 
+    /**
+     * Convenience flag reflecting whether [lastLoginAt] is non-null.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @Column(name = "has_logged_in")
     val hasLoggedIn = lastLoginAt != null
 
+    /**
+     * Set of privilege codes assigned to the user.
+     * Codes should correspond to an enum implementing `Privilege` in the consuming app.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "${TABLE_PREFIX}_privileges", joinColumns = [JoinColumn(name = "user_id")])
+    @CollectionTable(name = "${TABLE_PREFIX}privileges", joinColumns = [JoinColumn(name = "user_id")])
     @Column(name = "privilege_code", nullable = false, length = 128)
     var privilegeCodes: MutableSet<String> = mutableSetOf()
 
     companion object {
 
+        /**
+         * Maximum supported length for the access token.
+         *
+         * @author Roman Shishkin
+         * @since %CURRENT_VERSION%
+         */
         const val ACCESS_TOKEN_MAX_LENGTH = 255
+
+        /**
+         * Maximum supported length for the user name.
+         *
+         * @author Roman Shishkin
+         * @since %CURRENT_VERSION%
+         */
         const val NAME_MAX_LENGTH = 255
     }
 }

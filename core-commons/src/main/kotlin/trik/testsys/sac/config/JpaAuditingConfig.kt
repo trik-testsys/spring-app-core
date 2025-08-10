@@ -26,6 +26,9 @@ class JpaAuditingConfig {
      *
      * Only authenticated, non-anonymous users are considered auditors. If no such user is
      * present, the auditor is absent and `createdBy`/`lastModifiedBy` remain null.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
      */
     @Bean
     fun auditorAware(): AuditorAware<String> = AuditorAware {

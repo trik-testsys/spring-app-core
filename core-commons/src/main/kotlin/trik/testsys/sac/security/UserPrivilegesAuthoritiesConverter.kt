@@ -12,12 +12,27 @@ import org.springframework.stereotype.Component
  *
  * Uses the default [JwtGrantedAuthoritiesConverter] and augments it with values from a custom
  * claim (by default `privileges`).
+ *
+ * @author Roman Shishkin
+ * @since %CURRENT_VERSION%
  */
 @Component
 class UserPrivilegesAuthoritiesConverter : Converter<Jwt, Collection<GrantedAuthority>> {
 
+    /**
+     * Delegate converter that extracts scope/authority claims according to Spring defaults.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     private val delegate = JwtGrantedAuthoritiesConverter()
 
+    /**
+     * Converts the given [Jwt] into a collection of [GrantedAuthority], including custom privileges.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     override fun convert(jwt: Jwt): Collection<GrantedAuthority> {
         val authorities = delegate.convert(jwt)?.toMutableSet() ?: mutableSetOf()
         val privileges = jwt.getClaimAsStringList(CUSTOM_CLAIM_NAME) ?: emptyList()
@@ -27,6 +42,12 @@ class UserPrivilegesAuthoritiesConverter : Converter<Jwt, Collection<GrantedAuth
 
     companion object {
 
+        /**
+         * Name of the custom claim containing application-specific privileges.
+         *
+         * @author Roman Shishkin
+         * @since %CURRENT_VERSION%
+         */
         private const val CUSTOM_CLAIM_NAME = "privileges"
     }
 }

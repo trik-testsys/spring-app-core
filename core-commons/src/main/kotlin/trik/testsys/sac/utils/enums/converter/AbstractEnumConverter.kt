@@ -8,10 +8,19 @@ import java.lang.reflect.ParameterizedType
 /**
  * Generic JPA AttributeConverter that maps enums implementing [Enum]
  * to their dbkey representation and back.
+ *
+ * @author Roman Shishkin
+ * @since %CURRENT_VERSION%
  */
 abstract class AbstractEnumConverter<E> : AttributeConverter<E, String>
         where E : kotlin.Enum<E>, E : Enum {
 
+    /**
+     * Resolved enum class for the concrete converter implementation.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     @Suppress("UNCHECKED_CAST")
     private val enumClass: Class<E> by lazy {
         val superType = javaClass.genericSuperclass

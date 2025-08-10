@@ -8,6 +8,12 @@ package trik.testsys.sac.utils.enums
  */
 interface Enum {
 
+    /**
+     * Short, stable key stored in DB instead of the enum name.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     val dbkey: String
 }
 

@@ -15,8 +15,29 @@ import java.time.Instant
  * @since %CURRENT_VERSION%
  */
 interface Auditable {
+
+    /**
+     * Identifier of the creator.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     val createdBy: String?
+
+    /**
+     * Last modification timestamp in UTC.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     val lastModifiedAt: Instant?
+
+    /**
+     * Identifier of the last modifier.
+     *
+     * @author Roman Shishkin
+     * @since %CURRENT_VERSION%
+     */
     val lastModifiedBy: String?
 }
 
