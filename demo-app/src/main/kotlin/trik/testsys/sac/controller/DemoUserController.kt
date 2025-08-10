@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -12,12 +13,15 @@ import trik.testsys.sac.config.security.JwtSecurityConfig.Companion.API_PERMIT_A
 import trik.testsys.sac.controller.response.ResponseData
 import trik.testsys.sac.data.entity.user.AbstractUserEntity
 import trik.testsys.sac.entity.DemoUser
+import trik.testsys.sac.privilege.DemoUserPrivilege
 import trik.testsys.sac.service.DemoUserService
+import trik.testsys.sac.service.DemoUserPrivilegeService
 
 @RestController
 @RequestMapping("$API_PERMIT_ALL_PATH/users")
 class DemoUserController(
-    private val demoUserService: DemoUserService
+    private val demoUserService: DemoUserService,
+    private val demoUserPrivilegeService: DemoUserPrivilegeService
 ) {
 
 
@@ -62,7 +66,20 @@ class DemoUserController(
         return ResponseEntity.ok(body)
     }
 
+    @PostMapping("/{id}/privileges")
+    fun addPrivileges(
+        @PathVariable id: Long,
+        @RequestBody request: AddPrivilegesRequest
+    ): ResponseEntity<DemoUsersResponseData> {
+        val updated = demoUserPrivilegeService.addPrivilegesToUser(id, request.privileges.map { it.code })
+        return ResponseEntity.ok(DemoUsersResponseData(listOf(updated)))
+    }
+
     data class DemoUsersResponseData(
         val users: List<DemoUser?>
     ) : ResponseData
+
+    data class AddPrivilegesRequest(
+        val privileges: List<DemoUserPrivilege>
+    )
 }
