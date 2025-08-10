@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity.audit
+package trik.testsys.sac.data.entity.audit
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import trik.testsys.sac.entity.BaseEntity
+import trik.testsys.sac.data.entity.BaseEntity
 import java.time.Instant
 
 /**

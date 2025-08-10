@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity.user
+package trik.testsys.sac.data.entity.user
 
 import jakarta.persistence.CollectionTable
 import jakarta.persistence.Column
@@ -6,7 +6,7 @@ import jakarta.persistence.ElementCollection
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.MappedSuperclass
-import trik.testsys.sac.entity.audit.AuditableEntity
+import trik.testsys.sac.data.entity.audit.AuditableEntity
 import java.time.Instant
 
 /**

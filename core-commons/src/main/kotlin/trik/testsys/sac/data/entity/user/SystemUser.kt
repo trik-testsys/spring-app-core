@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity.user
+package trik.testsys.sac.data.entity.user
 
 /**
  * System user with all privileges.

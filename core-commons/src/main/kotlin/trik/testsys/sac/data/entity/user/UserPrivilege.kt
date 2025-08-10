@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity.user
+package trik.testsys.sac.data.entity.user
 
 import trik.testsys.sac.utils.enums.Enum
 

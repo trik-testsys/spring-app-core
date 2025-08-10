@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity.audit
+package trik.testsys.sac.data.entity.audit
 
 import java.time.Instant
 

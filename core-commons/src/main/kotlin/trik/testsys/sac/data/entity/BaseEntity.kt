@@ -1,4 +1,4 @@
-package trik.testsys.sac.entity
+package trik.testsys.sac.data.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
