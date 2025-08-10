@@ -66,7 +66,7 @@ abstract class AbstractUserEntity(
      * @author Roman Shishkin
      * @since 1.1.0
      */
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "${TABLE_PREFIX}privileges", joinColumns = [JoinColumn(name = "user_id")])
     @Column(name = "privilege_code", nullable = false, length = 128)
     var privilegeCodes: MutableSet<String> = mutableSetOf()
