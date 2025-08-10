@@ -54,3 +54,7 @@ server:
     whitelabel:
       enabled: false
     include-message: always
+sac:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:default-insecure-secret}
