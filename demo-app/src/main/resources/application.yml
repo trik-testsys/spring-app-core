@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: ${APP_NAME:demo-app}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -33,3 +31,7 @@ server:
     whitelabel:
       enabled: false
     include-message: always
+sac:
+  security:
+    jwt:
+      secret: ${JWT_SECRET}
