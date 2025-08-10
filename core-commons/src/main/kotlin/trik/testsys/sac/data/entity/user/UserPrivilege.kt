@@ -24,6 +24,9 @@ interface UserPrivilege : Enum {
      */
     val code: String
 
+    override val dbkey: String
+        get() = code
+
     companion object {
 
         /**
