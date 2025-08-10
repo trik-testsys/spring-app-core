@@ -45,4 +45,8 @@ server:
   error:
     whitelabel:
       enabled: false
-    include-message: always 
+    include-message: always
+sac:
+  security:
+    jwt:
+      secret: ${JWT_SECRET}
