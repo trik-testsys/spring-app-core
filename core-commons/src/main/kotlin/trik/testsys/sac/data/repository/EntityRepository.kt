@@ -3,10 +3,10 @@ package trik.testsys.sac.data.repository
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.NoRepositoryBean
-import trik.testsys.sac.data.entity.BaseEntity
+import trik.testsys.sac.data.entity.AbstractEntity
 
 /**
- * Base Spring Data repository for all entities extending [BaseEntity].
+ * Base Spring Data repository for all entities extending [AbstractEntity].
  *
  * Extends [JpaRepository] for CRUD operations and [JpaSpecificationExecutor]
  * for flexible criteria queries. Marked as [NoRepositoryBean] so Spring
@@ -19,5 +19,5 @@ import trik.testsys.sac.data.entity.BaseEntity
  * @since 1.1.0
  */
 @NoRepositoryBean
-interface BaseRepository<T : BaseEntity> : JpaRepository<T, Long>, JpaSpecificationExecutor<T>
+interface EntityRepository<T : AbstractEntity> : JpaRepository<T, Long>, JpaSpecificationExecutor<T>
 

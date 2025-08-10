@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import trik.testsys.sac.config.security.JwtSecurityConfig.Companion.API_PERMIT_ALL_PATH
 import trik.testsys.sac.controller.response.ResponseData
+import trik.testsys.sac.data.entity.user.AbstractUserEntity
 import trik.testsys.sac.entity.DemoUser
 import trik.testsys.sac.service.DemoUserService
 
@@ -45,12 +46,12 @@ class DemoUserController(
         val demoUsers = demoUserService.findAll { root, query, criteriaBuilder ->
             val predicates = mutableListOf<Predicate>()
             name?.let {
-                val predicate = criteriaBuilder.equal(root.get<String>("name"), it)
+                val predicate = criteriaBuilder.equal(root.get<String>(AbstractUserEntity.NAME), it)
                 predicates += predicate
             }
 
             token?.let {
-                val predicate = criteriaBuilder.equal(root.get<String>("accessToken"), it)
+                val predicate = criteriaBuilder.equal(root.get<String>(AbstractUserEntity.ACCESS_TOKEN), it)
                 predicates += predicate
             }
 

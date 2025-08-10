@@ -3,18 +3,18 @@ package trik.testsys.sac.data.service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
-import trik.testsys.sac.data.entity.BaseEntity
+import trik.testsys.sac.data.entity.AbstractEntity
 
 /**
- * Base service contract for entities extending [BaseEntity].
+ * Base service contract for entities extending [AbstractEntity].
  *
  * Provides a thin abstraction over Spring Data repositories to allow
  * business-layer extensions and shared behaviors.
  *
  * Type parameters:
- * - [E]: entity type extending [BaseEntity]
+ * - [E]: entity type extending [AbstractEntity]
  */
-interface BaseService<E : BaseEntity> {
+interface EntityService<E : AbstractEntity> {
 
     /**
      * Returns the existing entity by id or throws [NoSuchElementException] if not found.

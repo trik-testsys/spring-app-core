@@ -5,7 +5,7 @@ import java.time.Instant
 /**
  * Contract for auditable domain objects providing created/modified metadata.
  *
- * Implemented by [AuditableEntity] and can be implemented by custom entities if needed.
+ * Implemented by [AbstractAuditableEntity] and can be implemented by custom entities if needed.
  *
  * @property createdBy Identifier of the creator (e.g., username or user id)
  * @property lastModifiedAt Last modification timestamp in UTC

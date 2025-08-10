@@ -3,12 +3,11 @@ package trik.testsys.sac.data.repository.user
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.query.Param
-import trik.testsys.sac.data.entity.BaseEntity.Companion.TABLE_PREFIX
-import trik.testsys.sac.data.entity.user.UserEntity
-import trik.testsys.sac.data.repository.BaseRepository
+import trik.testsys.sac.data.entity.user.AbstractUserEntity
+import trik.testsys.sac.data.repository.EntityRepository
 
 /**
- * Repository contract for accessing user entities that extend [UserEntity].
+ * Repository contract for accessing user entities that extend [AbstractUserEntity].
  *
  * This interface purposefully avoids binding to a specific `@Entity` so that
  * downstream applications can expose their concrete implementation while
@@ -18,7 +17,7 @@ import trik.testsys.sac.data.repository.BaseRepository
  * @since 1.1.0
  */
 @NoRepositoryBean
-interface UserRepository<T : UserEntity> : BaseRepository<T> {
+interface UserRepository<T : AbstractUserEntity> : EntityRepository<T> {
 
     /**
      * Finds a user by an exact access token match.

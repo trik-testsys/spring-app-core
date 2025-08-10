@@ -7,11 +7,11 @@ import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import trik.testsys.sac.data.entity.BaseEntity
+import trik.testsys.sac.data.entity.AbstractEntity
 import java.time.Instant
 
 /**
- * Mapped superclass that adds audit metadata on top of [BaseEntity].
+ * Mapped superclass that adds audit metadata on top of [AbstractEntity].
  *
  * Requires Spring Data JPA auditing to be enabled (see `JpaAuditingConfig`).
  * Implement [org.springframework.data.domain.AuditorAware] in the application
@@ -26,7 +26,7 @@ import java.time.Instant
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class AuditableEntity : BaseEntity(), Auditable {
+abstract class AbstractAuditableEntity : AbstractEntity(), Auditable {
 
     @CreatedBy
     @Column(name = "created_by", updatable = false, length = 255)
@@ -39,6 +39,13 @@ abstract class AuditableEntity : BaseEntity(), Auditable {
     @LastModifiedBy
     @Column(name = "last_modified_by", length = 255)
     override var lastModifiedBy: String? = null
+
+    companion object {
+
+        const val CREATED_BY = "createdBy"
+        const val LAST_MODIFIED_AT = "lastModifiedAt"
+        const val LAST_MODIFIED_BY = "lastModifiedBy"
+    }
 }
 
 

@@ -1,7 +1,7 @@
 package trik.testsys.sac.data.service.user
 
 import org.springframework.transaction.annotation.Transactional
-import trik.testsys.sac.data.entity.user.UserEntity
+import trik.testsys.sac.data.entity.user.AbstractUserEntity
 import trik.testsys.sac.data.repository.user.UserRepository
 import trik.testsys.sac.data.service.AbstractService
 
@@ -12,7 +12,7 @@ import trik.testsys.sac.data.service.AbstractService
  * from [AbstractService].
  *
  * Type parameters:
- * - [E]: user entity type extending [UserEntity]
+ * - [E]: user entity type extending [AbstractUserEntity]
  * - [R]: repository type extending [UserRepository] for [E]
  *
  * @author Roman Shishkin
@@ -20,7 +20,7 @@ import trik.testsys.sac.data.service.AbstractService
  */
 @Transactional(readOnly = true)
 abstract class AbstractUserService<E, R> : AbstractService<E, R>(), UserService<E>
-        where E : UserEntity,
+        where E : AbstractUserEntity,
               R : UserRepository<E> {
 
     override fun findByAccessToken(accessToken: String): E? =

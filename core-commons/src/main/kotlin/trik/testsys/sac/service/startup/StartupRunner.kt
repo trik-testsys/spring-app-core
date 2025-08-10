@@ -10,7 +10,19 @@ import kotlinx.coroutines.runBlocking
  **/
 interface StartupRunner {
 
-    fun executeBlocking() = runBlocking { execute() }
-
+    /**
+     * Entry point to execute [StartupRunner] (suspend).
+     *
+     * @author Roman Shishkin
+     * @since 1.1.0
+     */
     suspend fun execute()
+
+    /**
+     * Entry point to execute [StartupRunner].
+     *
+     * @author Roman Shishkin
+     * @since 1.1.0
+     */
+    fun executeBlocking() = runBlocking { execute() }
 }

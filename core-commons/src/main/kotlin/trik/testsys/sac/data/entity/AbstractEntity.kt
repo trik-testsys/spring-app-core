@@ -30,7 +30,7 @@ import java.time.Instant
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class BaseEntity : Persistable<Long> {
+abstract class AbstractEntity : Persistable<Long> {
 
     /**
      * Database primary key.
@@ -79,7 +79,7 @@ abstract class BaseEntity : Persistable<Long> {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
-        other as BaseEntity
+        other as AbstractEntity
         if (id == null || other.id == null) return false
         return id == other.id
     }
@@ -95,6 +95,10 @@ abstract class BaseEntity : Persistable<Long> {
          * @since 1.1.0
          */
         const val TABLE_PREFIX = "ts_"
+
+        const val ID = "id"
+        const val CREATED_AT = "createdAt"
+        const val INFO = "info"
     }
 }
 

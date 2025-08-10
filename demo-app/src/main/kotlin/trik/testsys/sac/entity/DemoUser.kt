@@ -2,8 +2,8 @@ package trik.testsys.sac.entity
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import trik.testsys.sac.data.entity.BaseEntity.Companion.TABLE_PREFIX
-import trik.testsys.sac.data.entity.user.UserEntity
+import trik.testsys.sac.data.entity.AbstractEntity.Companion.TABLE_PREFIX
+import trik.testsys.sac.data.entity.user.AbstractUserEntity
 
 /**
  * Demo concrete user entity for showcasing repository usage.
@@ -13,6 +13,6 @@ import trik.testsys.sac.data.entity.user.UserEntity
 class DemoUser(
     accessToken: String,
     name: String
-) : UserEntity(accessToken, name)
+) : AbstractUserEntity(accessToken, name)
 
 

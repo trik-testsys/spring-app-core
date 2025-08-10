@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository
 import jakarta.persistence.EntityManager
-import trik.testsys.sac.data.entity.BaseEntity
+import trik.testsys.sac.data.entity.AbstractEntity
 
 /**
  * Optional repository helpers to ease pagination and specification composition.
@@ -18,7 +18,7 @@ import trik.testsys.sac.data.entity.BaseEntity
  * @author Roman Shishkin
  * @since 1.1.0
  */
-class ExtendedJpaRepository<T : BaseEntity>(
+class ExtendedJpaRepository<T : AbstractEntity>(
     domainClass: Class<T>,
     entityManager: EntityManager
 ) : SimpleJpaRepository<T, Long>(domainClass, entityManager) {

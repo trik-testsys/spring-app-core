@@ -6,7 +6,7 @@ import jakarta.persistence.ElementCollection
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.MappedSuperclass
-import trik.testsys.sac.data.entity.audit.AuditableEntity
+import trik.testsys.sac.data.entity.audit.AbstractAuditableEntity
 import java.time.Instant
 
 /**
@@ -14,7 +14,7 @@ import java.time.Instant
  *
  * Designed to be extended by child projects which provide the concrete `@Entity`
  * and `@Table` mapping. This class contains common user attributes, auditing fields
- * (via [AuditableEntity]) and persistence conventions used across projects.
+ * (via [AbstractAuditableEntity]) and persistence conventions used across projects.
  *
  * - Privileges are stored as a set of stable string codes in [privilegeCodes].
  *   Consuming applications should define an enum implementing
@@ -34,12 +34,12 @@ import java.time.Instant
  * @since 1.1.0
  */
 @MappedSuperclass
-abstract class UserEntity(
+abstract class AbstractUserEntity(
     @Column(name = "access_token", length = ACCESS_TOKEN_MAX_LENGTH, unique = true)
     var accessToken: String,
     @Column(name = "name", nullable = false, length = NAME_MAX_LENGTH)
     var name: String
-) : AuditableEntity() {
+) : AbstractAuditableEntity() {
 
     /**
      * Last successful login timestamp in UTC, if available.
@@ -88,6 +88,12 @@ abstract class UserEntity(
          * @since 1.1.0
          */
         const val NAME_MAX_LENGTH = 255
+
+        const val ACCESS_TOKEN = "accessToken"
+        const val NAME = "name"
+        const val LAST_LOGIN_AT = "lastLoginAt"
+        const val HAS_LOGGED_IN = "hasLoggedIn"
+        const val PRIVILEGE_CODE = "privilegeCode"
     }
 }
 

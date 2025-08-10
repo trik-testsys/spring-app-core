@@ -10,7 +10,7 @@ package trik.testsys.sac.data.entity.user
  * @author Roman Shishkin
  * @since 1.1.0
  */
-object SystemUser : UserEntity(
+object SystemUser : AbstractUserEntity(
     accessToken = "SYSTEM",
     name = "System"
 ) {
