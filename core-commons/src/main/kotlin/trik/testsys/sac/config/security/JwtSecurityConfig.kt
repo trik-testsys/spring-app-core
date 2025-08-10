@@ -6,7 +6,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter
 import org.springframework.security.web.SecurityFilterChain
+import trik.testsys.sac.security.AccessTokenAuthenticationFilter
 
 /**
  * Minimal JWT-based security configuration for resource servers.
@@ -29,7 +31,11 @@ class JwtSecurityConfig {
      * @since 1.1.0
      */
     @Bean
-    fun securityFilterChain(http: HttpSecurity, jwtAuthenticationConverter: JwtAuthenticationConverter): SecurityFilterChain {
+    fun securityFilterChain(
+        http: HttpSecurity,
+        jwtAuthenticationConverter: JwtAuthenticationConverter,
+        accessTokenAuthenticationFilter: AccessTokenAuthenticationFilter
+    ): SecurityFilterChain {
         http
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
@@ -39,6 +45,7 @@ class JwtSecurityConfig {
                     .anyRequest().authenticated()
             }
             .oauth2ResourceServer { it.jwt { jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter) } }
+            .addFilterBefore(accessTokenAuthenticationFilter, BearerTokenAuthenticationFilter::class.java)
 
         return http.build()
     }
