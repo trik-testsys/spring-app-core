@@ -21,7 +21,7 @@ import trik.testsys.sac.data.repository.BaseRepository
  * - [R]: repository type extending [BaseRepository] for [E]
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @Transactional(readOnly = true)
 abstract class AbstractService<E, R> : BaseService<E>

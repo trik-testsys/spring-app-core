@@ -15,7 +15,7 @@ import trik.testsys.sac.data.repository.BaseRepository
  * reusing the common repository API.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @NoRepositoryBean
 interface UserRepository<T : UserEntity> : BaseRepository<T> {
@@ -24,7 +24,7 @@ interface UserRepository<T : UserEntity> : BaseRepository<T> {
      * Finds a user by an exact access token match.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findByAccessToken(accessToken: String): T?
 
@@ -32,7 +32,7 @@ interface UserRepository<T : UserEntity> : BaseRepository<T> {
      * Case-insensitive search by user name.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findByNameIgnoreCase(name: String): List<T>
 
@@ -40,7 +40,7 @@ interface UserRepository<T : UserEntity> : BaseRepository<T> {
      * Returns all users that have at least one of the given privilege codes.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Query(
         """

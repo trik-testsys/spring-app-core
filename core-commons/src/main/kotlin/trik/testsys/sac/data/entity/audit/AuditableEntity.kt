@@ -22,7 +22,7 @@ import java.time.Instant
  * @property lastModifiedBy Identifier of the last modifier
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)

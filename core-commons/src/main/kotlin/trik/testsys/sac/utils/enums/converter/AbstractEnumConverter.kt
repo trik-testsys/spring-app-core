@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType
  * to their dbkey representation and back.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 abstract class AbstractEnumConverter<E> : AttributeConverter<E, String>
         where E : kotlin.Enum<E>, E : Enum {
@@ -19,7 +19,7 @@ abstract class AbstractEnumConverter<E> : AttributeConverter<E, String>
      * Resolved enum class for the concrete converter implementation.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Suppress("UNCHECKED_CAST")
     private val enumClass: Class<E> by lazy {

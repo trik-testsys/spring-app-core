@@ -12,7 +12,7 @@ import java.time.Instant
  * @property lastModifiedBy Identifier of the last modifier (e.g., username or user id)
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 interface Auditable {
 
@@ -20,7 +20,7 @@ interface Auditable {
      * Identifier of the creator.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     val createdBy: String?
 
@@ -28,7 +28,7 @@ interface Auditable {
      * Last modification timestamp in UTC.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     val lastModifiedAt: Instant?
 
@@ -36,7 +36,7 @@ interface Auditable {
      * Identifier of the last modifier.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     val lastModifiedBy: String?
 }

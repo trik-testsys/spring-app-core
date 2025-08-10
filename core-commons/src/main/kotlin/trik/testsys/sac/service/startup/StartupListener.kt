@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
  * Service which executes every [StartupRunner] implementation after application ready.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  **/
 @Service
 class StartupListener(

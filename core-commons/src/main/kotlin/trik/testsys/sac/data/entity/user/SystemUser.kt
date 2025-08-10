@@ -8,7 +8,7 @@ package trik.testsys.sac.data.entity.user
  * the wildcard code.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 object SystemUser : UserEntity(
     accessToken = "SYSTEM",

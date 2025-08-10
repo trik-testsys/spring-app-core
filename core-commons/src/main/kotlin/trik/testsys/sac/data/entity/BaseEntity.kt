@@ -26,7 +26,7 @@ import java.time.Instant
  * @property info optional free-form text for notes or metadata
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
@@ -36,7 +36,7 @@ abstract class BaseEntity : Persistable<Long> {
      * Database primary key.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,7 @@ abstract class BaseEntity : Persistable<Long> {
      * Setter for testing and framework usage.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun setId(id: Long?) {
         this.id = id
@@ -61,7 +61,7 @@ abstract class BaseEntity : Persistable<Long> {
      * Entity creation date-time in UTC, set by auditing.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -71,7 +71,7 @@ abstract class BaseEntity : Persistable<Long> {
      * Optional free-form text for notes or metadata.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Column(name = "info", columnDefinition = "TEXT")
     var info: String? = null
@@ -92,7 +92,7 @@ abstract class BaseEntity : Persistable<Long> {
          * Default database table prefix for entities.
          *
          * @author Roman Shishkin
-         * @since %CURRENT_VERSION%
+         * @since 1.1.0
          */
         const val TABLE_PREFIX = "ts_"
     }

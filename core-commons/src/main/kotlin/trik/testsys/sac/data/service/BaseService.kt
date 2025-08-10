@@ -20,7 +20,7 @@ interface BaseService<E : BaseEntity> {
      * Returns the existing entity by id or throws [NoSuchElementException] if not found.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun getById(id: Long): E
 
@@ -28,7 +28,7 @@ interface BaseService<E : BaseEntity> {
      * Returns the entity by id or null if it does not exist.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findById(id: Long): E?
 
@@ -36,7 +36,7 @@ interface BaseService<E : BaseEntity> {
      * Checks whether an entity with the given id exists.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun existsById(id: Long): Boolean
 
@@ -44,7 +44,7 @@ interface BaseService<E : BaseEntity> {
      * Returns all entities.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findAll(): List<E>
 
@@ -52,7 +52,7 @@ interface BaseService<E : BaseEntity> {
      * Returns all entities matching the given ids.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findAllById(ids: Iterable<Long>): List<E>
 
@@ -60,7 +60,7 @@ interface BaseService<E : BaseEntity> {
      * Returns all entities matching the optional JPA [Specification].
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findAll(specification: Specification<E>?): List<E>
 
@@ -68,7 +68,7 @@ interface BaseService<E : BaseEntity> {
      * Returns a page of entities matching the optional JPA [Specification] and [Pageable].
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findAll(specification: Specification<E>?, pageable: Pageable): Page<E>
 
@@ -76,7 +76,7 @@ interface BaseService<E : BaseEntity> {
      * Returns the total number of entities.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun count(): Long
 
@@ -84,7 +84,7 @@ interface BaseService<E : BaseEntity> {
      * Saves the given entity and returns the persisted instance.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun save(entity: E): E
 
@@ -92,7 +92,7 @@ interface BaseService<E : BaseEntity> {
      * Saves all the given entities and returns persisted instances.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun saveAll(entities: Iterable<E>): List<E>
 
@@ -100,7 +100,7 @@ interface BaseService<E : BaseEntity> {
      * Deletes an entity by its id.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun deleteById(id: Long)
 
@@ -108,7 +108,7 @@ interface BaseService<E : BaseEntity> {
      * Deletes an entity.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun delete(entity: E)
 }

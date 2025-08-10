@@ -11,7 +11,7 @@ import trik.testsys.sac.security.UserPrivilegesAuthoritiesConverter
  * @property userPrivilegesAuthoritiesConverter Converter that extracts custom authorities from JWTs.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @Configuration
 class SecurityBeansConfig(
@@ -23,7 +23,7 @@ class SecurityBeansConfig(
      * [UserPrivilegesAuthoritiesConverter].
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Bean
     fun jwtAuthenticationConverter(): JwtAuthenticationConverter = JwtAuthenticationConverter().apply {

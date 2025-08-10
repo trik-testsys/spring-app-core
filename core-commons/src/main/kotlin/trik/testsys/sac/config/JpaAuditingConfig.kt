@@ -18,7 +18,7 @@ import java.util.Optional
  * if used) are populated automatically by the persistence layer.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @Configuration
 @EnableJpaAuditing
@@ -34,7 +34,7 @@ class JpaAuditingConfig {
      * present, the auditor is absent and `createdBy`/`lastModifiedBy` remain null.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Bean
     fun auditorAware(): AuditorAware<String> = AuditorAware {

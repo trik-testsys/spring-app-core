@@ -12,7 +12,7 @@ import trik.testsys.sac.data.service.BaseService
  * - [T]: concrete user entity type extending [UserEntity]
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 interface UserService<T : UserEntity> : BaseService<T> {
 
@@ -20,7 +20,7 @@ interface UserService<T : UserEntity> : BaseService<T> {
      * Returns a user by exact access token or null if not found.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findByAccessToken(accessToken: String): T?
 
@@ -28,7 +28,7 @@ interface UserService<T : UserEntity> : BaseService<T> {
      * Returns users by case-insensitive name match.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findByNameIgnoreCase(name: String): List<T>
 
@@ -36,7 +36,7 @@ interface UserService<T : UserEntity> : BaseService<T> {
      * Returns users that have at least one of the given privilege codes.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     fun findAllByAnyPrivilegeIn(codes: Collection<String>): List<T>
 }

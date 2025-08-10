@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain
  * and leaves endpoint authorization to the consumer application.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @Configuration
 @EnableWebSecurity
@@ -26,7 +26,7 @@ class JwtSecurityConfig {
      * Builds the Spring Security filter chain with stateless JWT authentication.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     @Bean
     fun securityFilterChain(http: HttpSecurity, jwtAuthenticationConverter: JwtAuthenticationConverter): SecurityFilterChain {

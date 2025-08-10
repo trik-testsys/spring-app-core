@@ -16,7 +16,7 @@ import trik.testsys.sac.data.entity.BaseEntity
  * `interface ProjectRepository : BaseRepository<ProjectEntity>`
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @NoRepositoryBean
 interface BaseRepository<T : BaseEntity> : JpaRepository<T, Long>, JpaSpecificationExecutor<T>

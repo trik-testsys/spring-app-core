@@ -12,7 +12,7 @@ import trik.testsys.sac.utils.enums.Enum
  * `enum class UserPrivilege(override val code: String) : Privilege { READ("READ"), WRITE("WRITE") }`
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 interface UserPrivilege : Enum {
 
@@ -20,7 +20,7 @@ interface UserPrivilege : Enum {
      * Stable code for the privilege used in persistence and authorization checks.
      *
      * @author Roman Shishkin
-     * @since %CURRENT_VERSION%
+     * @since 1.1.0
      */
     val code: String
 
@@ -30,7 +30,7 @@ interface UserPrivilege : Enum {
          * Special code representing all privileges granted.
          *
          * @author Roman Shishkin
-         * @since %CURRENT_VERSION%
+         * @since 1.1.0
          */
         const val WILDCARD: String = "*"
     }

@@ -16,7 +16,7 @@ import trik.testsys.sac.data.entity.BaseEntity
  * if they need to implement custom shared behavior. It's safe to keep unused.
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 class ExtendedJpaRepository<T : BaseEntity>(
     domainClass: Class<T>,

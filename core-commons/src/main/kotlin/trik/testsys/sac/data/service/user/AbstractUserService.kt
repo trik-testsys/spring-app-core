@@ -16,7 +16,7 @@ import trik.testsys.sac.data.service.AbstractService
  * - [R]: repository type extending [UserRepository] for [E]
  *
  * @author Roman Shishkin
- * @since %CURRENT_VERSION%
+ * @since 1.1.0
  */
 @Transactional(readOnly = true)
 abstract class AbstractUserService<E, R> : AbstractService<E, R>(), UserService<E>
