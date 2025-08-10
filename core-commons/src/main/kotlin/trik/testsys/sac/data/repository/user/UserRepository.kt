@@ -44,7 +44,7 @@ interface UserRepository<T : UserEntity> : BaseRepository<T> {
      */
     @Query(
         """
-        select distinct u from ${TABLE_PREFIX}#{#entityName} u
+        select distinct u from #{#entityName} u
         join u.privilegeCodes pc
         where pc in :codes
         """
