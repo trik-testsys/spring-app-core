@@ -12,7 +12,7 @@ spring:
     generate-ddl: true
     open-in-view: true
   datasource:
-    url: jdbc:h2:file:${DATA_SOURCE_FILE:./data};AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:${DATA_SOURCE_FILE:./data};AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password: password
@@ -45,4 +45,4 @@ server:
 sac:
   security:
     jwt:
-      secret: ${JWT_SECRET:default-insecure-secret}
+      secret: ${JWT_SECRET:a-string-secret-at-least-256-bits-long}
