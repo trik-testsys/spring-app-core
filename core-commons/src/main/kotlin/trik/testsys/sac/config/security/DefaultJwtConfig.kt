@@ -26,7 +26,7 @@ class DefaultJwtConfig {
     @Bean
     @ConditionalOnMissingBean(JwtDecoder::class)
     fun jwtDecoder(
-        @Value("\${sac.security.jwt.secret:$DEFAULT_INSECURE_SECRET}")
+        @Value("\${sac.security.jwt.secret}")
         secret: String
     ): JwtDecoder {
         if (secret == DEFAULT_INSECURE_SECRET) logger.error("JWT Token is insecure, only for dev usage.\n\n !!!NOT FOR PRODUCTION!!!\n")

@@ -45,7 +45,7 @@ class JwtSecurityConfig {
 
     companion object {
 
-        const val API_PERMIT_ALL_PATH = "/api/all"
+        const val API_PERMIT_ALL_PATH = "/api/permit-all"
         const val API_PERMIT_ALL_PATTERN = "$API_PERMIT_ALL_PATH/**"
         const val ACTUATOR_HEALTH_PATTERN = "/actuator/health"
     }
