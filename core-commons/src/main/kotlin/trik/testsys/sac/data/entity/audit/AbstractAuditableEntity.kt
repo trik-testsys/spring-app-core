@@ -29,16 +29,16 @@ import java.time.Instant
 abstract class AbstractAuditableEntity : AbstractEntity(), Auditable {
 
     @CreatedBy
-    @Column(name = "created_by", updatable = false, length = 255)
-    override var createdBy: String? = null
+    @Column(name = "created_by", updatable = false)
+    override var createdBy: Long? = null
 
     @LastModifiedDate
     @Column(name = "last_modified_at")
     override var lastModifiedAt: Instant? = null
 
     @LastModifiedBy
-    @Column(name = "last_modified_by", length = 255)
-    override var lastModifiedBy: String? = null
+    @Column(name = "last_modified_by")
+    override var lastModifiedBy: Long? = null
 
     companion object {
 

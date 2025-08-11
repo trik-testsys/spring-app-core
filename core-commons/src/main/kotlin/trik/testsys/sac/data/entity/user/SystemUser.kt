@@ -15,6 +15,8 @@ object SystemUser : AbstractUserEntity(
     name = "System"
 ) {
 
+    override fun getId(): Long = 0L
+
     init {
         privilegeCodes.add(UserPrivilege.WILDCARD)
     }

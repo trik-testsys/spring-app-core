@@ -5,6 +5,7 @@ import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Version
 import jakarta.persistence.MappedSuperclass
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.domain.Persistable
@@ -42,6 +43,14 @@ abstract class AbstractEntity : Persistable<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private var id: Long? = null
+
+    /**
+     * Optimistic lock version. Ensures an UPDATE on owner row when collections change,
+     * which triggers auditing callbacks for lastModified* fields.
+     */
+    @Version
+    @Column(name = "version")
+    private var version: Long = 0
 
     /**
      * Setter for testing and framework usage.

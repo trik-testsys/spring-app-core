@@ -7,9 +7,9 @@ import java.time.Instant
  *
  * Implemented by [AbstractAuditableEntity] and can be implemented by custom entities if needed.
  *
- * @property createdBy Identifier of the creator (e.g., username or user id)
+ * @property createdBy Identifier of the creator user id
  * @property lastModifiedAt Last modification timestamp in UTC
- * @property lastModifiedBy Identifier of the last modifier (e.g., username or user id)
+ * @property lastModifiedBy Identifier of the last modifier user id
  *
  * @author Roman Shishkin
  * @since 1.1.0
@@ -22,7 +22,7 @@ interface Auditable {
      * @author Roman Shishkin
      * @since 1.1.0
      */
-    val createdBy: String?
+    val createdBy: Long?
 
     /**
      * Last modification timestamp in UTC.
@@ -38,7 +38,7 @@ interface Auditable {
      * @author Roman Shishkin
      * @since 1.1.0
      */
-    val lastModifiedBy: String?
+    val lastModifiedBy: Long?
 }
 
 

@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.security.authentication.AnonymousAuthenticationToken
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.transaction.annotation.EnableTransactionManagement
+import trik.testsys.sac.data.entity.user.SystemUser
 import java.util.Optional
 
 /**
@@ -21,7 +23,7 @@ import java.util.Optional
  * @since 1.1.0
  */
 @Configuration
-@EnableJpaAuditing
+@EnableJpaAuditing(modifyOnCreate = true)
 @EnableTransactionManagement
 @EntityScan(basePackages = ["trik.testsys.**.entity"])
 @EnableJpaRepositories(basePackages = ["trik.testsys.**.repository"])
@@ -37,12 +39,16 @@ class JpaAuditingConfig {
      * @since 1.1.0
      */
     @Bean
-    fun auditorAware(): AuditorAware<String> = AuditorAware {
+    fun auditorAware(): AuditorAware<Long> = AuditorAware {
         val authentication = SecurityContextHolder.getContext()?.authentication
-        if (authentication == null || !authentication.isAuthenticated || authentication is AnonymousAuthenticationToken) {
-            Optional.empty()
-        } else {
-            Optional.ofNullable(authentication.name)
+        val auditorId: Long? = when {
+            authentication == null
+                || !authentication.isAuthenticated
+                || authentication is AnonymousAuthenticationToken -> null
+            authentication is JwtAuthenticationToken -> (authentication.token.claims["uid"] as? Number)?.toLong()
+            else -> authentication.name?.toLongOrNull()
         }
+
+        Optional.ofNullable(auditorId ?: SystemUser.id)
     }
 }
