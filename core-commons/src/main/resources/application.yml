@@ -58,6 +58,6 @@ server:
 sac:
   security:
     jwt:
-      secret: ${JWT_SECRET:default-insecure-secret}
+      secret: ${JWT_SECRET:a-string-secret-at-least-256-bits-long}
       issuer: ${JWT_ISSUER:sac-core}
       ttl-seconds: ${JWT_TTL_SECONDS:3600}

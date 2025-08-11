@@ -1,4 +1,4 @@
-package trik.testsys.sac.security
+package trik.testsys.sac.service.security
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -8,7 +8,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.springframework.web.filter.OncePerRequestFilter
 import trik.testsys.sac.data.service.user.UserService
 
@@ -26,7 +26,7 @@ import trik.testsys.sac.data.service.user.UserService
  * @author Roman Shishkin
  * @since %CURRENT_VERSION%
  */
-@Component
+@Service
 class AccessTokenAuthenticationFilter(
     private val userService: UserService<*>,
     private val jwtTokenService: JwtTokenService
@@ -40,13 +40,15 @@ class AccessTokenAuthenticationFilter(
         try {
             val context = SecurityContextHolder.getContext()
             if (context.authentication == null) {
-                val accessToken = resolveAccessToken(request)
+                val accessToken = request.resolveAccessToken()
+
                 if (!accessToken.isNullOrBlank()) {
                     val user = userService.findByAccessToken(accessToken)
                     if (user != null) {
                         val auth = jwtTokenService.buildAuthenticationForUser(user)
-                        attachDetails(auth, request)
+                        auth.attachDetails(request)
                         SecurityContextHolder.getContext().authentication = auth
+
                         // Also attach freshly minted JWT to response for clients to store
                         response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer ${auth.token.tokenValue}")
                     } else {
@@ -61,12 +63,11 @@ class AccessTokenAuthenticationFilter(
         filterChain.doFilter(request, response)
     }
 
-    private fun resolveAccessToken(request: HttpServletRequest): String? =
-        request.getHeader(ACCESS_TOKEN_HEADER)
-            ?: request.getParameter(ACCESS_TOKEN_PARAM)
+    private fun HttpServletRequest.resolveAccessToken(): String? =
+        getHeader(ACCESS_TOKEN_HEADER) ?: getParameter(ACCESS_TOKEN_PARAM)
 
-    private fun attachDetails(authentication: AbstractAuthenticationToken, request: HttpServletRequest) {
-        authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+    private fun AbstractAuthenticationToken.attachDetails(request: HttpServletRequest) {
+        this.details = WebAuthenticationDetailsSource().buildDetails(request)
     }
 
     companion object {

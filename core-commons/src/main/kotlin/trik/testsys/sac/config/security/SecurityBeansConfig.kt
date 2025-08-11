@@ -3,7 +3,7 @@ package trik.testsys.sac.config.security
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
-import trik.testsys.sac.security.UserPrivilegesAuthoritiesConverter
+import trik.testsys.sac.service.security.UserPrivilegesAuthoritiesConverter
 
 /**
  * Common security beans to wire JWT converters.

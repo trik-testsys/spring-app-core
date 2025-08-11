@@ -23,6 +23,9 @@ import javax.crypto.spec.SecretKeySpec
  * override this bean with a stronger configuration.
  *
  * This bean is only created when there is no other [JwtDecoder] in the context.
+ *
+ * @author Roman Shishkin
+ * @since %CURRENT_VERSION%
  */
 @Configuration
 class DefaultJwtConfig {
@@ -53,7 +56,7 @@ class DefaultJwtConfig {
 
         private val logger = LoggerFactory.getLogger(DefaultJwtConfig::class.java)
 
-        private const val DEFAULT_INSECURE_SECRET = "default-insecure-secret"
+        private const val DEFAULT_INSECURE_SECRET = "a-string-secret-at-least-256-bits-long"
     }
 }
 

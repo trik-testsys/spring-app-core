@@ -1,4 +1,4 @@
-package trik.testsys.sac.security
+package trik.testsys.sac.service.security
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.oauth2.jwt.Jwt
@@ -28,12 +28,12 @@ import java.time.Instant
 class JwtTokenService(
     private val jwtEncoder: JwtEncoder,
     private val jwtAuthenticationConverter: JwtAuthenticationConverter,
+
     @Value("\${sac.security.jwt.issuer}")
     private val issuer: String,
     @Value("\${sac.security.jwt.ttl-seconds}")
     private val ttlSeconds: Long
-)
-{
+) {
 
     /**
      * Generates a signed [Jwt] for the given [user].
@@ -48,9 +48,9 @@ class JwtTokenService(
             .issuedAt(now)
             .expiresAt(expiresAt)
             .subject(user.name)
-            .claim("uid", user.id)
-            .claim("name", user.name)
-            .claim("privileges", user.privilegeCodes.toList())
+            .claim(UID, user.id)
+            .claim(NAME, user.name)
+            .claim(PRIVILEGES, user.privilegeCodes.toList())
             .build()
 
         val headers = JwsHeader.with(MacAlgorithm.HS256).build()
@@ -66,6 +66,13 @@ class JwtTokenService(
         val authentication = jwtAuthenticationConverter.convert(jwt)
             ?: error("Failed to convert JWT to Authentication")
         return authentication as JwtAuthenticationToken
+    }
+
+    companion object {
+
+        const val UID = "uid"
+        const val NAME = "name"
+        const val PRIVILEGES = "privileges"
     }
 }
 

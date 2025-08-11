@@ -1,11 +1,12 @@
-package trik.testsys.sac.security
+package trik.testsys.sac.service.security
 
 import org.springframework.core.convert.converter.Converter
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
+import trik.testsys.sac.service.security.JwtTokenService.Companion.PRIVILEGES
 
 /**
  * Converter that maps a JWT into a collection of [GrantedAuthority].
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component
  * @author Roman Shishkin
  * @since 1.1.0
  */
-@Component
+@Service
 class UserPrivilegesAuthoritiesConverter : Converter<Jwt, Collection<GrantedAuthority>> {
 
     /**
@@ -35,20 +36,9 @@ class UserPrivilegesAuthoritiesConverter : Converter<Jwt, Collection<GrantedAuth
      */
     override fun convert(jwt: Jwt): Collection<GrantedAuthority> {
         val authorities = delegate.convert(jwt)?.toMutableSet() ?: mutableSetOf()
-        val privileges = jwt.getClaimAsStringList(CUSTOM_CLAIM_NAME) ?: emptyList()
+        val privileges = jwt.getClaimAsStringList(PRIVILEGES) ?: emptyList()
         authorities += privileges.map { SimpleGrantedAuthority(it) }
         return authorities
-    }
-
-    companion object {
-
-        /**
-         * Name of the custom claim containing application-specific privileges.
-         *
-         * @author Roman Shishkin
-         * @since 1.1.0
-         */
-        private const val CUSTOM_CLAIM_NAME = "privileges"
     }
 }
 
