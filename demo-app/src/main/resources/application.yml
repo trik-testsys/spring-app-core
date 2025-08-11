@@ -26,10 +26,12 @@ spring:
       initialize-schema: always
 logging:
   level:
-    trik.testsys.*: debug
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.security: DEBUG
+    trik.testsys.*: DEBUG
+    org.hibernate.*: INFO
+    org.springframework.**: INFO
+    org.springframework.web.servlet: INFO
+    org.springframework.boot.autoconfigure.logging: INFO
+
   file:
     name: "${LOG_FILE:${PWD}/logs/server.log}"
 server:
